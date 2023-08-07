@@ -1,0 +1,11 @@
+.navbar {
+    position: absolute;
+}
+
+.button {
+    text-decoration: none;
+}
+
+.button.active {
+    font-weight: 700;
+}
