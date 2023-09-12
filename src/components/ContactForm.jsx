@@ -1,4 +1,3 @@
-import { Box, Button, FormControl, TextField } from '@mui/material';
 import { useState } from 'react';
 
 export const ContactForm = () => {
@@ -15,15 +14,15 @@ export const ContactForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <FormControl sx={{ display: 'flex', gap: 2 }}>
-                <TextField
+            <div>
+                <input
                     placeholder="Enter your name"
                     label="Name"
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <TextField
+                <input
                     placeholder="Enter your email"
                     label="Email"
                     id="email"
@@ -31,10 +30,10 @@ export const ContactForm = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button type="submit" variant="contained" color="primary">
+                <button type="submit" variant="contained" color="primary">
                     Submit
-                </Button>
-            </FormControl>
+                </button>
+            </div>
         </form>
     )
 }

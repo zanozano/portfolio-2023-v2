@@ -1,7 +1,7 @@
 /* For webkit-based browsers (Chrome, Safari, Edge) */
 /* Customize the scrollbar track (the background behind the thumb) */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -11,7 +11,7 @@
 /* Customize the scrollbar thumb (the draggable handle) */
 ::-webkit-scrollbar-thumb {
     background-color: #888;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 /* On hover, change the color of the scrollbar thumb */

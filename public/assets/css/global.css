@@ -1,0 +1,341 @@
+@charset "UTF-8";
+/* Definimos las Custom properties */
+:root {
+  /* Colores */
+  --negro: #393939;
+  /* Tipografía */
+  --tipo-principal: Roboto, Helvetica, sans-serif;
+  --tipo-secundaria: Verdana;
+}
+
+/* (Opcional) Las adaptamos al modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --negro: #ececec;
+  }
+}
+/* (Opcional) Configuramos si un usuario ha activado el modo alto contraste. (WD) */
+/* (Opcional) Desactivamos los animations en el caso de que el usuario haya configurado el modo sin animation */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+/* Reseteamos los margin y paddings de todas las etiquetas */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+*::before,
+*::after {
+  display: block;
+}
+
+/* Evitamos problemas con las imagenes */
+img,
+picture,
+video,
+iframe,
+figure {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  /* (Opcional) */
+  object-fit: cover;
+  /* (Opcional) */
+  object-position: center center;
+}
+
+/* Reseteamos los enlaces para funcionar como cajas... */
+a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* ... excepto los que se encuentran en párrafos */
+p a {
+  display: inline;
+}
+
+/* Quitamos los puntos de los <li> */
+li {
+  list-style-type: none;
+}
+
+/* (Opcional) Configuramos anclas suaves */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Desactivamos estilos por defecto de las principales etiquetas de texto */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+strong,
+blockquote,
+i,
+b,
+u,
+em {
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Evitamos problemas con los pseudoelementos de quotes */
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+/* (Opcional) Configuramos el texto que seleccionamos */
+::selection {
+  background-color: var(--negro);
+  color: var(--blanco);
+}
+
+/* Nivelamos problemas de tipografías y colocación de formularios */
+form,
+input,
+textarea,
+select,
+button,
+label {
+  font-family: inherit;
+  font-size: inherit;
+  hyphens: auto;
+  background-color: transparent;
+  color: inherit;
+  display: block;
+  /* (Opcional) */
+  appearance: none;
+}
+
+/* Reseteamos las tablas */
+table,
+tr,
+td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Evitamos problemas con los SVG */
+svg {
+  width: 100%;
+  display: block;
+  fill: currentColor;
+}
+
+/* Configuramos la tipografía para toda la web */
+body {
+  min-height: 100vh;
+  font-size: 100%;
+  font-family: var(--tipo-principal);
+  color: var(--negro);
+  /* (Opcional) */
+  hyphens: auto;
+  /* (Opcional) */
+  font-smooth: always;
+  /* (Opcional) */
+  -webkit-font-smoothing: antialiased;
+  /* (Opcional) */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* For webkit-based browsers (Chrome, Safari, Edge) */
+/* Customize the scrollbar track (the background behind the thumb) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Customize the scrollbar thumb (the draggable handle) */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+/* On hover, change the color of the scrollbar thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+  cursor: pointer;
+}
+
+/* CSS for disabling scrolling */
+.body-no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+:root {
+  --font-primary--light: #0d0d0d;
+  --font-primary--dark: #fafafa;
+  --background-primary: #313131;
+  --background-secondary: #f7f7f7;
+}
+
+.navbar {
+  align-items: center;
+  background-color: var(--background-primary);
+  color: rgb(250, 250, 250);
+  display: flex;
+  height: 4rem;
+  justify-content: space-between;
+  padding: 0 4%;
+  position: fixed;
+  transition: height 0.3s ease-in-out;
+  width: 100%;
+}
+.navbar--colapse {
+  height: 3rem;
+}
+.navbar__menu {
+  display: none;
+}
+.navbar__icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  color: #fafafa;
+}
+.navbar__ul {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+.navbar__li {
+  background-color: #df6060;
+  padding: 0.5rem 2rem;
+}
+.navbar__contact {
+  background-color: #df6060;
+  padding: 0.5rem 1rem;
+  border-radius: 0.1rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.navbar__contact:hover {
+  background-color: #c54c4c;
+  font-weight: 500;
+}
+.navbar__contact:active {
+  background-color: #aa3a3a;
+}
+
+.drawer {
+  position: fixed;
+  left: -100%;
+  width: 90%;
+  height: 100%;
+  background-color: #1f1f1f;
+  z-index: 999;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: left 0.3s ease-in-out;
+}
+.drawer__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+.drawer--colapse {
+  left: 0;
+}
+.drawer__ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.drawer__li {
+  font-size: 1.2rem;
+  transition: all 0.1s ease-in-out;
+}
+.drawer__li:hover {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: block;
+}
+
+.container {
+  min-height: 100%;
+  align-items: flex-start;
+  color: #0d0d0d;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+}
+
+.footer {
+  align-items: center;
+  background-color: #313131;
+  bottom: 0;
+  display: flex;
+  height: 4rem;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 767.98px) {
+  .navbar__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar__ul {
+    display: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* ... */
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* ... */
+}
+@media (min-width: 1200px) {
+  /* ... */
+}
+
+/*# sourceMappingURL=global.css.map */

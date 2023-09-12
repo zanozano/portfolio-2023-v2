@@ -1,146 +1,124 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-    AppBar,
-    Box,
-    Button,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ListItemButton,
-    ListItemText,
-    Toolbar,
-    Typography,
-} from '@mui/material';
+import { CloseIcon, MenuIcon } from '../icons';
 
-import MenuIcon from '@mui/icons-material/Menu';
-
-//css
-import './navbar.css'
-
-const drawerWidth = 240;
 
 export const Navbar = ({ root }) => {
-    const { window } = root;
-    const [mobileOpen, setMobileOpen] = useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [backdropOpen, setBackdropOpen] = useState(false);
+
+    const toggleDrawer = () => {
+        setDrawerOpen(!drawerOpen);
+        setBackdropOpen(!backdropOpen);
+
+        // Toggle body scroll class
+        if (!backdropOpen) {
+            document.body.classList.add('body-no-scroll');
+        } else {
+            document.body.classList.remove('body-no-scroll');
+        }
     };
 
-    //Drawer
-    const drawer = (
-        <Box
-            onClick={handleDrawerToggle}
-            sx={{ textAlign: 'center' }}
-        >
-            <NavLink to={'/'} style={{ textDecoration: 'none' }}>
-                <Typography variant="h6" sx={{ my: 2 }}>
-                    zanozano
-                </Typography>
-            </NavLink>
-            <Divider />
-            <List>
-                {root.slice(1, -1).map((item) => (
-                    <ListItemButton
-                        component={NavLink}
-                        key={item.name}
-                        to={item.path}
-                        sx={{
-                            textAlign: 'left',
-                            "&.active": {
-                                // Agrega los estilos que deseas aplicar al ListItem activo
-                                backgroundColor: "#956",
-                            },
-                        }}
-                    >
-                        <ListItemText primary={item.name} />
-                    </ListItemButton>
-                ))}
-            </List>
-        </Box>
-    );
+    //navbar
+    useEffect(() => {
+        const navbar = document.querySelector(".navbar");
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+        if (navbar) {
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('navbar--colapse');
+                } else {
+                    navbar.classList.remove('navbar--colapse');
+                }
+            });
+        }
+
+        // Toggle drawer class
+        const drawer = document.querySelector('.drawer');
+        if (drawer) {
+            drawer.classList.toggle('drawer--colapse', !backdropOpen);
+        }
+    }, []);
+
+    //scroll
+    useEffect(() => {
+        return () => {
+            document.body.classList.remove('body-no-scroll');
+        };
+    }, []);
 
     return (
         <>
-            <AppBar component="nav" className='navbar'>
-                <Toolbar sx={{ justifyContent: 'space-between' }}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+            <div className='navbar'>
 
-                    <NavLink to={'/'} style={{ textDecoration: 'none' }}>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{
-                                display: { xs: 'none', sm: 'block' }
-                            }}
-                        >
-                            zanozano
-                        </Typography>
-                    </NavLink>
-
-                    <List sx={{ display: { xs: 'none', sm: 'flex' }, gap: '16px' }}>
-                        {root.slice(1, -1).map((item) => (
-                            <ListItemButton
-                                component={NavLink}
-                                key={item.name}
-                                to={item.path}
-                                sx={{
-                                    textAlign: 'center',
-                                    "&.active": {
-                                        backgroundColor: "#956",
-                                    },
-                                }}
-                            >
-                                <ListItemText primary={item.name} />
-                            </ListItemButton>
-                        ))}
-                    </List>
-
-                    <NavLink to="/contact-us" >
-                        <Button sx={{ color: '#fff' }}>
-                            Contact Us
-                        </Button>
-                    </NavLink>
-                </Toolbar>
-            </AppBar>
-            {/* Drawer */}
-            <Box component="nav">
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': {
-                            boxSizing: 'border-box',
-                            width: drawerWidth
-                        },
-                    }}
+                <button
+                    onClick={toggleDrawer}
+                    aria-label='Click to Open Menu'
+                    className='navbar__menu navbar__icon'
                 >
-                    {drawer}
-                </Drawer>
-            </Box>
+                    <MenuIcon color='#ffff' />
+                </button>
+
+                <NavLink to={'/'}>
+                    <p>
+                        zanozano
+                    </p>
+                </NavLink>
+
+                <ul className='navbar__ul'>
+                    {root.slice(1, -1).map((item) => (
+                        <NavLink
+                            key={item.name}
+                            to={item.path}
+                        >
+                            <li className='navbar__li'>
+                                {item.name}
+                            </li>
+                        </NavLink>
+                    ))}
+                </ul>
+
+                <button className='navbar__contact' aria-label="Contact Us">
+                    <NavLink to="/contact" >
+                        Contact
+                    </NavLink>
+                </button>
+
+            </div>
+
+            {/* drawer */}
+            {
+                drawerOpen && (
+                    <div className={`drawer ${drawerOpen ? 'drawer--colapse' : ''}`}>
+
+                        <button
+                            className='drawer__icon'
+                            aria-label='Click to Close Menu'
+                            onClick={toggleDrawer}
+                        >
+                            <CloseIcon color='#ffff' />
+                        </button>
+
+                        <ul className='drawer__ul'>
+                            {root.slice(1, -1).map((item) => (
+                                <NavLink
+                                    key={item.name}
+                                    onClick={toggleDrawer}
+                                    to={item.path}
+                                >
+                                    <li className='drawer__li'>
+                                        {item.name}
+                                    </li>
+                                </NavLink>
+                            ))}
+                        </ul>
+                    </div>
+                )
+            }
+            {/* Backdrop */}
+            {backdropOpen && <div className='backdrop'></div>}
         </>
     );
 }
 
-Navbar.propTypes = {
-    window: PropTypes.func,
-};
